@@ -25,20 +25,21 @@ public class armMiner : MonoBehaviour
         }
     }
 
-    // void OnTriggerStay2D(Collider2D other)
-    // {
-    //     if (other.tag == "ore1" || other.tag == "ore2")
-    //     {
-    //         other.gameObject.GetComponent<oreClickMining>().canBeMined = true;
-    //         other.gameObject.GetComponent<oreClickMining>().toggleMine = true;
-    //     }
-    // }
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.tag == "ore1" || other.tag == "ore2")
+        {
+            other.gameObject.GetComponent<oreClickMining>().canBeMined = true;
+            other.gameObject.GetComponent<oreClickMining>().toggleMine = true;
+        }
+    }
 
     void OnTriggerExit2D(Collider2D other)
     {
         if (other.tag == "ore1" || other.tag == "ore2")
         {
             other.gameObject.GetComponent<oreClickMining>().canBeMined = false;
+            other.gameObject.GetComponent<oreClickMining>().toggleMine = true;
         }
     }
 }

@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="TemplateData/style.css">
   </head>
   <body>
-    <div id="unity-container" class="unity-desktop">
-      <canvas id="unity-canvas" width=960 height=600></canvas>
+    <div id="unity-container" style="width: 1600px; height: 900px; overflow-y: hidden; position: absolute; margin-left: 165px; margin-top: 15px;">
+      <canvas id="unity-canvas" width=1600px height=900px></canvas>
       <div id="unity-loading-bar">
         <div id="unity-logo"></div>
         <div id="unity-progress-bar-empty">
@@ -59,9 +59,9 @@
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/Buildss.loader.js";
       var config = {
-        dataUrl: buildUrl + "/Buildss.data.br",
-        frameworkUrl: buildUrl + "/Buildss.framework.js.br",
-        codeUrl: buildUrl + "/Buildss.wasm.br",
+        dataUrl: buildUrl + "/Buildss.data",
+        frameworkUrl: buildUrl + "/Buildss.framework.js",
+        codeUrl: buildUrl + "/Buildss.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "AbiogenesisDemo",
@@ -83,8 +83,8 @@
         config.devicePixelRatio = 1;
         unityShowBanner('WebGL builds are not supported on mobile devices.');
       } else {
-        canvas.style.width = "960px";
-        canvas.style.height = "600px";
+        canvas.style.width = "100%";
+        canvas.style.height = "100%";
       }
       loadingBar.style.display = "block";
 

@@ -19,7 +19,7 @@ public class loginScreenManager : MonoBehaviour
 
     IEnumerator showLoginContainer()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(0.1f);
         loginContainer.SetActive(true);
     }
 }

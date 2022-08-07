@@ -5,4 +5,5 @@ using UnityEngine;
 public class oreCountStoring : MonoBehaviour
 {
     public static float naniteOreCount;
+    public static string playerAccount;
 }

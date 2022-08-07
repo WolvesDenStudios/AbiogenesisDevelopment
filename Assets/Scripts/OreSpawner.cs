@@ -21,6 +21,7 @@ public class OreSpawner : MonoBehaviour
     private float nanitesOreCount = 300f, rareOreCount = 6;
     [SerializeField]
     private float naniteOreGenerated = 0f, rareOreGenerated = 0f, miningSessionTimerInSeconds;
+    public List<Vector3> orePositions = new List<Vector3>();
 
     void Start()
     {
@@ -38,22 +39,56 @@ public class OreSpawner : MonoBehaviour
         var radiusBounds = spawnArea.GetComponent<CircleCollider2D>().bounds;
         var px = Random.Range(radiusBounds.min.x, radiusBounds.max.x);
         var py = Random.Range(radiusBounds.min.y, radiusBounds.max.y);
-        Vector2 pos = new Vector2(px, py);
-        if(!armMiner.GetComponent<Collider2D>().OverlapPoint(pos) || !armScanner.GetComponent<Collider2D>().OverlapPoint(pos))
+        Vector3 pos = new Vector3(px, py, 0);
+        
+        if (orePositions.Count > 0)
         {
-            GameObject spawnedOre = Instantiate(oreToSpawn, pos, Quaternion.identity, parentOre.transform);
-            spawnedOre.GetComponent<oreClickMining>().isRare = isRare;
-            if (isRare)
+            // foreach (Vector2 existingPos in orePositions)
+            // for (int existingPos = 0; existingPos < orePositions.Count; existingPos++)
+            // {
+                // if(pos.x < orePositions[existingPos].x || pos.x > orePositions[existingPos].x || pos.y < orePositions[existingPos].y || pos.y > orePositions[existingPos].y)
+                if(!orePositions.Contains(pos))
+                {
+                    if(!armMiner.GetComponent<Collider2D>().bounds.Contains(pos) && !armScanner.GetComponent<Collider2D>().bounds.Contains(pos))
+                    {
+                        GameObject spawnedOre = Instantiate(oreToSpawn, pos, Quaternion.identity, parentOre.transform);
+                        spawnedOre.transform.SetSiblingIndex(0);
+                        spawnedOre.GetComponent<oreClickMining>().isRare = isRare;
+                        if (isRare)
+                        {
+                            rareOreGenerated -= 1;
+                            rareOreCount -= 1;
+                        }
+                        else
+                        {
+                            naniteOreGenerated -= 1;
+                            nanitesOreCount -= 1;
+                        }
+                        orePositions.Add(pos);
+                    }
+                }
+            // }
+        }
+        else
+        {
+            if(!armMiner.GetComponent<Collider2D>().bounds.Contains(pos) && !armScanner.GetComponent<Collider2D>().bounds.Contains(pos))
             {
-                rareOreGenerated -= 1;
-                rareOreCount -= 1;
-            }
-            else
-            {
-                naniteOreGenerated -= 1;
-                nanitesOreCount -= 1;
+                GameObject spawnedOre = Instantiate(oreToSpawn, pos, Quaternion.identity, parentOre.transform);
+                spawnedOre.GetComponent<oreClickMining>().isRare = isRare;
+                if (isRare)
+                {
+                    rareOreGenerated -= 1;
+                    rareOreCount -= 1;
+                }
+                else
+                {
+                    naniteOreGenerated -= 1;
+                    nanitesOreCount -= 1;
+                }
+                orePositions.Add(pos);
             }
         }
+        
     }
 
     IEnumerator naniteOreSpawner()

@@ -8,6 +8,12 @@ TagManager:
   - armMiner
   - ore1
   - ore2
+  - overheatManager
+  - overheatWarning
+  - malfunctionWarning
+  - mainRadar
+  - malfunctionArm
+  - malfunctionManager
   layers:
   - Default
   - TransparentFX
